@@ -1,11 +1,14 @@
 import { NextResponse } from 'next/server';
 import { db } from '@/lib/db';
-
+import { getUserByEmail } from '@/data/user';
 export async function POST(req){
     const body = await req.json();
-    const name = "test";
-    const email = "test@test.com";
-    // const password = "testsadfasdfasdf1212";
+    const {name, email, password} = body;
+    console.log(name, email, password);
+    if (getUserByEmail(email)) {
+        console.log("User already exists");
+        return NextResponse.json({message: "User already exists"}, {status: 400});
+    }
     try{
         await db.user.create({data: {name, email}})
     } catch (e){

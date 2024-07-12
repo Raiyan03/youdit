@@ -1,14 +1,15 @@
-import { db } from "@/lib/db"
+import { db } from "@/lib/db";
 
-export const createUser = async () => {
-    const name = "test"
-    const email = "test@test.com"
-    const password = "test"
-    await db.user.create({
-        data : {
-            name,
-            email,
-            password
-        }
-    })
+export const getUserByEmail = async (email) => {
+    try{
+        const user =  await db.user.findUnique({
+            where :{
+                email: email
+            }
+        })
+        return user;
+    } catch(e){
+        console.log(e);
+        return null;
+    }
 }

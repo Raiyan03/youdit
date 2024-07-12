@@ -12,6 +12,7 @@
     "@auth/prisma-adapter": "^2.4.1",
     "@prisma/client": "^5.16.2",
     "axios": "^1.7.2",
+    "bcryptjs": "^2.4.3",
     "next": "14.2.4",
     "next-auth": "^5.0.0-beta.19",
     "react": "^18",

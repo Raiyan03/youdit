@@ -26,12 +26,12 @@ const EditorForm = () => {
 
 
     useEffect(() => {
-        // Trigger the animation when the component mounts
         setIsLoaded(true);
     }, []);
+
     const Register = (e) => {
         e.preventDefault();
-        if (password !== confirmPassword) {
+        if (password != confirmPassword) {
             setError("Passwords do not match");
             return;
         }
@@ -40,8 +40,20 @@ const EditorForm = () => {
             email: email,
             password: password
         }
-        console.log(values);
-    } 
+        try{
+            axios.post("/api/auth/register", values)
+            .then((res) => {
+                console.log(res);
+            })
+            .catch((err) => {
+                setError(err.message);
+            })
+        }
+        catch(e){
+            setError(e.message);
+        }
+    }
+
     return (
         <div className="flex flex-col items-center ">
             <h1 className="text-2xl font-semibold text-gray-800 mb-6">

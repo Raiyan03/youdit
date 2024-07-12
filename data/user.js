@@ -13,3 +13,18 @@ export const getUserByEmail = async (email) => {
         return null;
     }
 }
+
+export const createUser = async (name, email, password) => {
+    try{
+        await db.user.create({
+            data: {
+                name: name,
+                email: email,
+                password: password,
+                role: "EDITOR"
+            }
+        })
+    } catch(e){
+        throw new Error(e);
+    }
+}

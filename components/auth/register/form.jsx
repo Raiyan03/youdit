@@ -1,6 +1,7 @@
 "use client"
+import {createUser} from "@/data/user"
 import { useEffect, useState } from 'react';
-
+import axios from "axios";
 const EditorForm = () => {
     const [isLoaded, setIsLoaded] = useState(false);
 
@@ -8,7 +9,21 @@ const EditorForm = () => {
         // Trigger the animation when the component mounts
         setIsLoaded(true);
     }, []);
-
+    const Register = () => {
+        const values = {
+            name: "test",
+            email: " test.com ",
+            password: "test"
+        };
+        try{
+            axios.post("/api/auth/register", values)
+            .then((res) => {
+                console.log(res);
+            })
+        }catch (e){
+            console.log(e);
+        }
+    } 
     return (
         <div className="flex flex-col items-center ">
             <h1 className="text-2xl font-semibold text-gray-800 mb-6">
@@ -31,6 +46,9 @@ const EditorForm = () => {
                     Join Now
                 </button>
             </form>
+            <button onClick={Register} className="">
+                create
+            </button>
         </div>
     );
 };

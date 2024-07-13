@@ -1,8 +1,10 @@
+import AuthForm from "@/components/auth/auth-form"
+import EditorFormLogin from "@/components/auth/login/editor-form-login"
+import YoutuberForm from "@/components/auth/register/youtuber-form"
+
 const Login = () => {
   return (
-    <div>
-      Login
-    </div>
+    <AuthForm YoutuberForm={YoutuberForm} EditorForm={EditorFormLogin} />
   )
 }
 

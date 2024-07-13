@@ -1,6 +1,8 @@
 import GoogleProvider from "next-auth/providers/google"
 import Credentials from "next-auth/providers/credentials"
 import type { NextAuthConfig } from "next-auth"
+import { loginInputValidation, matchPassword } from "./lib/validation"
+import { getUserByEmail } from "./data/user"
 
 export default {
     providers: [ GoogleProvider({
@@ -20,6 +22,25 @@ export default {
         }
       }),
       Credentials({
-        
+        async authorize(credentials){
+          const validateCredentials = loginInputValidation(credentials);
+          console.log(credentials);
+          if (validateCredentials){
+            const {email, password} = credentials;
+            const user = await getUserByEmail(email);
+
+            if (!user || !user.password){
+              return null;
+            }
+
+            const isValid = await matchPassword(user?.password, password);
+            console.log(isValid);
+            if (isValid){
+              return user;
+            }
+            
+          }
+          return null;
+        }
       })]
 } satisfies NextAuthConfig

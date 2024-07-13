@@ -3,6 +3,8 @@ import {createUser} from "@/data/user"
 import ErrorBox from "@/components/auth/error"
 import { useEffect, useState } from 'react';
 import axios from "axios";
+import Link from "next/link";
+import { registrationInputValidation } from "@/lib/validation";
 const EditorForm = () => {
     const [isLoaded, setIsLoaded] = useState(false);
     const [name, setName] = useState("");
@@ -30,10 +32,12 @@ const EditorForm = () => {
     }, []);
 
     const Register = (e) => {
+        setError("");
         e.preventDefault();
-        if (password != confirmPassword) {
-            setError("Passwords do not match");
-            return;
+        const response = registrationInputValidation({name, email, password, confirmPassword});
+        if (response.error) {
+            setError(response.error);
+            return ;
         }
         const values = {
             name: name,
@@ -46,7 +50,7 @@ const EditorForm = () => {
                 console.log(res);
             })
             .catch((err) => {
-                setError(err.message);
+                setError(err.response.data.message);
             })
         }
         catch(e){
@@ -76,6 +80,9 @@ const EditorForm = () => {
                 <button type="submit" className="py-3 px-5 bg-primary text-white rounded-lg font-medium hover:bg-accent transition duration-300 ease-in-out"> 
                     Join Now
                 </button>
+                <Link href="/auth/login" className="mt-3 self-center underline hover:text-accent">
+                    Already have an account? Login
+                </Link>
             </form>
         </div>
     );

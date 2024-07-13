@@ -4,7 +4,7 @@ import YoutuberForm from "@/components/auth/register/youtuber-form";
 import AuthForm from "@/components/auth/auth-form";
 const Register = () => {
     return (
-        <AuthForm EditorForm={EditorForm} YoutuberForm={YoutuberForm}  />
+        <AuthForm EditorForm={EditorForm} YoutuberForm={YoutuberForm}/>
     );
 }
 

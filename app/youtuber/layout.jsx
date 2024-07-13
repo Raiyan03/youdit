@@ -11,7 +11,6 @@ const YoutubeLayout = ({children}) => {
                 </main>
             </div>
         </div>
-
     );
 }
 

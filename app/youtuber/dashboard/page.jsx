@@ -1,10 +1,11 @@
+import UserBatch from "@/components/youtuber/user-batch";
 import { auth } from "@/auth";
 
 const YoutuberDashboard = async () => {
     const session = await auth();
     return (
-        <div className="text-wrap">
-            { JSON.stringify(session)}
+        <div className="flex items-center flex-col justify-center">
+            <UserBatch user={session?.user} />
         </div>
     );
 }

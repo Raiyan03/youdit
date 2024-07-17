@@ -19,7 +19,7 @@ const navbarItems = {
     },
     {
       title: "Videos",
-      path: "/youtuber/uploads",
+      path: "/youtuber/videos",
       icon: <FiYoutube />,
     },
   ],
@@ -33,7 +33,7 @@ export default function SideBar({ isToggle }) {
   const router = useRouter()
 
   return (
-    <div className=" flex flex-col  w-[200px] min-h-screen z-10 bg-background border-r ">
+    <div className=" flex flex-col mt-0  w-[200px] min-h-screen z-10 bg-background border-r ">
       <ul className="flex flex-col gap-2 overflow-auto">
         {navbarItems.list.map((item) => (
           <li key={item.title} className="block">
@@ -47,7 +47,6 @@ export default function SideBar({ isToggle }) {
             Logout
         </button>
       </form>
-
     </div>
   );
 }

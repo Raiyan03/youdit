@@ -6,16 +6,15 @@ const YoutubeLayout = ({children}) => {
             <div className="fixed w-full z-10">
                 <Navbar />
             </div>
-            <div className="flex flex-grow pt-16 relative"> {/* Adjust padding-top to the height of your Navbar if needed */}
+            <div className="flex flex-grow  pt-16 relative"> {/* Adjust padding-top to the height of your Navbar if needed */}
                 <div className="fixed z-30">
                     <Sidebar />
                 </div>
-                <main className=" z-0 ml-[200px] flex-1 p-3 h-full">
+                <main className=" ml-[200px] min-h-sc z-0 flex-1 p-3 h-full">
                     {children}
                 </main>
             </div>
         </div>
-
     );
 }
 

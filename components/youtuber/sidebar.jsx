@@ -5,11 +5,9 @@ import { FiYoutube } from "react-icons/fi";
 import NavLinks from "./navlinks";
 import { logOut } from "@/actions/logout";
 import Link from "next/link";
-
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { signOut } from "@/auth";
-
 const navbarItems = {
   list: [
     {

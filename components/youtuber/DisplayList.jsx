@@ -15,7 +15,7 @@ export const DisplayList = ({data, isOpenModal, closeModal, openModal}) => {
                     <Frame data={item} key={index}/>
                 )
             })}
-            <button className=" bg-primary text-white rounded-md p-1 self-end">
+            <button onClick={openModal} className=" bg-primary text-white rounded-md p-1 self-end">
                 + Add new
             </button>
         </div>

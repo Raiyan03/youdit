@@ -6,7 +6,7 @@ import EditorsList from './editors';
 const Hero = ({isOpen, closeModal, openModal}) => {
     const session = useSession()?.data;
   return (
-    <div className={`flex items-center gap-3 flex-col justify-center ${isOpen && ' blur-sm pointer-events-none'}`}  aria-disabled={isOpen}>
+    <div className={`flex items-center gap-3 flex-col justify-center ${isOpen && ' blur-sm pointer-events-none'} transition duration-100 ease-in-out`}  aria-disabled={isOpen}>
         <UserBatch user={session?.user} />
         <div className="flex flex-col justify-between w-full gap-7  sm:flex-col md:flex-row items-center">
             <Card openModal={openModal} title="Add an Editor!" description="Don't have an editor assigned, add one now!" image="/editor.png" link="/youtuber/videos" />

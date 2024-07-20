@@ -1,21 +1,34 @@
+"use client"
+import FormModal from "@/components/youtuber/Modals/form-modal";
 import EditorsList from "@/components/youtuber/dashboard/editors";
 import UserBatch from "@/components/youtuber/user-batch";
-import { auth } from "@/auth";
 import Card from "@/components/youtuber/dashboard/card";
-const YoutuberDashboard = async () => {
-    const session = await auth();
-    return (
-        <div className=" flex flex-col gap-3">
-            <div className="flex items-center gap-10 flex-col justify-center">
-                <UserBatch user={session?.user} />
-                <div className="flex flex-col justify-between w-full gap-7  sm:flex-col md:flex-row items-center">
-                    <Card title="Add an Editor!" description="Don't have an editor assigned, add one now!" image="/editor.png" link="/youtuber/videos" />
-                    <Card title="No videos in production" description="Assign a video to your editors and have a status on your videos" image="/editor.png" link="/youtuber/videos" />
-                </div>
-            </div>
-            <EditorsList  />
-        </div>
+import { useState, useContext } from "react";
+import { useSession } from "next-auth/react";
+import Hero from "@/components/youtuber/dashboard/hero";
+const YoutuberDashboard = () => {
+    const [isOpen, setIsOpen] = useState(false);
+    const session = useSession()?.data;
 
+    const openModal = () => {
+        setIsOpen(true);
+    }
+
+    const closeModal = () => {
+        setIsOpen(false);
+    } 
+
+    return (
+        <div className={`flex flex-col gap-3 `}>
+            <Hero isOpen={isOpen} closeModal={closeModal} openModal={openModal} />
+            {isOpen 
+            && 
+            <FormModal 
+            isOpen={isOpen} 
+            onClose={closeModal} className="opacity-100"
+             title={"Assign editor"} inputFields={[{label: "Editor's email", type: "Email", placeholder: "Enter editor's email", url: "/youtuber/videos"}]}
+            />}
+        </div>
     );
 }
 

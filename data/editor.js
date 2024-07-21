@@ -1,3 +1,4 @@
+"use server";
 import { db } from "@/lib/db";
 
 export const updateEditor = async (editor) => {
@@ -27,8 +28,7 @@ export const addYoutuberToEditor = async (editor, youtuber) => {
     const { youtubers } = editor;
 
     if (youtubers.includes(youtuberId)){
-        console.log("Youtuber already added");
-        return;
+        return { error: "Already assigned"}
     }
     editor.youtubers.push(youtuberId);
     try{
@@ -38,4 +38,17 @@ export const addYoutuberToEditor = async (editor, youtuber) => {
     }
     console.log("youtuber id", youtuberId);
     console.log("youtubers editor alrady has", youtubers);
+}
+
+export const fetchEditors = async (id) => {
+    const editors = await db.user.findMany({
+        where: {
+            role: "EDITOR",
+            youtubers: {
+                has: id
+            }
+        }
+    })
+    console.log(editors);
+    return editors;
 }

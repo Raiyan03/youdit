@@ -29,6 +29,19 @@ export const getEditor = async (email) => {
     }
 }
 
+export const getUserById = async (id) => {
+    try{
+        const user = await db.user.findUnique({
+            where: {
+                id: id
+            }
+        });
+        return user;
+    } catch(e) {
+        return null;
+    }
+}
+
 export const createUser = async (name, email, password) => {
     try{
         await db.user.create({

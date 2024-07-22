@@ -7,7 +7,7 @@ const Frame = ({ data }) => {
     const [visible, setVisible] = useState(false);
     const [rotated, setRotated] = useState(false);
     const [isOpen, setIsOpen] = useState(false);
-    const { link, title } = data;
+    const { image, name, role } = data;
 
     const hover = () => {
         setVisible(true);
@@ -23,11 +23,11 @@ const Frame = ({ data }) => {
     };
 
     return (
-        <div onMouseEnter={hover} onMouseLeave={leaveHover} onClick={handleClick} className="flex flex-col cursor-pointer p-1 rounded-sm items-center w-full bg-gray-200">
+        <div onMouseEnter={hover} onMouseLeave={leaveHover} onClick={handleClick} className="flex flex-col cursor-pointer p-2 rounded-md items-center w-full bg-gray-200">
             <div className="flex justify-between w-full items-center">
-                <div className="flex gap-2 items-center">
-                    <Image src={link} width={50} height={50} />
-                    <h1>{title}</h1>
+                <div className="flex gap-3 items-center">
+                    <Image src={image ? image : "/noavatar.png" } className="border rounded-full bg-slate-700" width={40} height={40} />
+                    <h1>{name}</h1>
                 </div>
                 {visible && (
                     <FaChevronDown className={`transform transition-transform duration-300 ${rotated ? 'rotate-180' : 'rotate-0'}`} />

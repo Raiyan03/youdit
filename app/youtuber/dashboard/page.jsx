@@ -7,18 +7,22 @@ import { useState, useContext } from "react";
 import { useSession } from "next-auth/react";
 import Hero from "@/components/youtuber/dashboard/hero";
 import { emailValidation } from "@/lib/validation";
+import { addEditor } from "@/server/calls";
 
 const YoutuberDashboard = () => {
     const [isOpen, setIsOpen] = useState(false);
     const [inputEmail, setInputEmail] = useState(null);
-    const session = useSession()?.data;
+    const session = useSession().data;
+
     const [errorMsg, setErrorMsg] = useState(null);
     const [successMsg, setSuccessMsg] = useState(null);
 
     const openModal = () => {
         setIsOpen(true);
+        setErrorMsg(null);
+        setSuccessMsg(null);
+        setInputEmail(null);
     }
-
     const closeModal = () => {
         setIsOpen(false);
     } 
@@ -29,16 +33,16 @@ const YoutuberDashboard = () => {
 
     const onSubmit = (e) => {
         setErrorMsg(null);
-        setErrorMsg(null);
+        setSuccessMsg(null);
         e.preventDefault();
-        const response = emailValidation(inputEmail);
-        if (response.error) {
-            setErrorMsg(response.error);
-            return;
-        }
-        if (response.success) {
-            setErrorMsg(null);
-        }
+        addEditor(inputEmail, session.user.email ).then((response) => {
+            if (response.error){
+                setErrorMsg(response.error);
+            } else if (response.success){
+                setSuccessMsg(response.success);
+            }
+        })
+        setInputEmail(null);
     };
 
     return (

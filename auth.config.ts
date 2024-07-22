@@ -24,7 +24,6 @@ export default {
       Credentials({
         async authorize(credentials){
           const validateCredentials = loginInputValidation(credentials);
-          console.log(credentials);
           if (validateCredentials){
             const {email, password} = credentials;
             const user = await getUserByEmail(email);
@@ -34,7 +33,6 @@ export default {
             }
 
             const isValid = await matchPassword(user?.password, password);
-            console.log(isValid);
             if (isValid){
               return user;
             }

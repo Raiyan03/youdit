@@ -47,7 +47,9 @@ const EditorForm = () => {
         try{
             axios.post("/api/auth/register", values)
             .then((res) => {
-                console.log(res);
+                if (res.error){
+                    setError(res.error);
+                }
             })
             .catch((err) => {
                 setError(err.response.data.message);

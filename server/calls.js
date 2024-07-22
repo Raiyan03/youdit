@@ -14,3 +14,12 @@ export const addEditor = async (email, youtuberEmail) => {
         return { error: error.response.data.message };
     }
 }
+
+export const FetchEditors = async (id) =>{
+    try {
+        const response = await axios.post('/api/youtuber/fetcheditor', { id });
+        return response?.data;
+    } catch (error) {
+        return { error: error.response.data.message };
+    }
+}

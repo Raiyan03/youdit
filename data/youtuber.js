@@ -25,16 +25,13 @@ export const addEditorToYoutuber = async (youtuber, editor) => {
     const editorId = editor?.id;
     const { editors } = youtuber;
     if (editors.includes(editorId)){
-        console.log("Editor already added");
-        return;
+        return { error: "Already assigned"};
     } else{
         youtuber?.editors.push(editorId);
     }
     try{
         await updateYoutuber( youtuber);
     } catch(e){
-        console.log(e);
+        return { error: "Couldn't add error" };
     }
-    console.log("editor id", editorId);
-    console.log("editors youtuber alrady has", editors);
 }

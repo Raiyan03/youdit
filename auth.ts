@@ -8,13 +8,10 @@ import { getUserById } from "./data/user"
 export const { handlers, signIn, signOut, auth } = NextAuth({
   callbacks: {
     async session({token, session}) {
-      console.log("session", token, session);
-
       if (token.role && session.user) {
         session.user.role = token.role;
         session.user.id = token.sub;
       }
-      console.log("session", session);
       return session;
     },
     async jwt({ token }) {

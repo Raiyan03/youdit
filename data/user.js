@@ -9,7 +9,6 @@ export const getUserByEmail = async (email) => {
         })
         return user;
     } catch(e){
-        console.log(e);
         return null;
     }
 }
@@ -24,7 +23,6 @@ export const getEditor = async (email) => {
         })
         return user;
     } catch(e){
-        console.log(e);
         return null;
     }
 }

@@ -51,10 +51,10 @@ const EditorFormLogin = () => {
                 }
             })
             .catch((err => {
-                console.log(err);
+                setError("something went wrong");
             }))
         } catch (error) {
-            console.log(error);
+            setError("something went wrong");
         }
     }
 

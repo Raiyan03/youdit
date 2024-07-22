@@ -34,13 +34,11 @@ export const addYoutuberToEditor = async (editor, youtuber) => {
     try{
         await updateEditor(editor);
     } catch(e){
-        console.log(e);
+        return { error: "Couldn't add error" };
     }
-    console.log("youtuber id", youtuberId);
-    console.log("youtubers editor alrady has", youtubers);
 }
 
-export const fetchEditors = async (id) => {
+export const getAssignedEditors = async (id) => {
     const editors = await db.user.findMany({
         where: {
             role: "EDITOR",
@@ -49,6 +47,5 @@ export const fetchEditors = async (id) => {
             }
         }
     })
-    console.log(editors);
     return editors;
 }

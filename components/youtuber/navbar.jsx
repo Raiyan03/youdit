@@ -1,6 +1,6 @@
+import userSession from "@/lib/getSession";
 import Image from "next/image";
-
-const Navbar = () => {
+const Navbar =  ({ user }) => {
     return (
         <div className=" h-[60px] flex items-center justify-between bg-background px-3 border-b shadow-sm">
             <div className="flex items-center">
@@ -10,7 +10,7 @@ const Navbar = () => {
                 </h1>
             </div>
             <Image 
-            src="https://lh3.googleusercontent.com/a/ACg8ocJuR7dMRe2CpFYa3N3XYwExQwcxWWDWhqF0ax2CZZ6e_scrvQ=s96-c"
+            src={user?.image ? user.image : "/noavatar.png"}
             height={33}
             width={33}
              className="rounded-full"

@@ -8,22 +8,8 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { signOut } from "@/auth";
-const navbarItems = {
-  list: [
-    {
-      title: "Dashboard",
-      path: "/youtuber/dashboard",
-      icon: <MdDashboard />,
-    },
-    {
-      title: "Videos",
-      path: "/youtuber/videos",
-      icon: <FiYoutube />,
-    },
-  ],
-};
 
-export default function SideBar({ isToggle }) {
+export default function SideBar({ isToggle, navbarItems }) {
   const [load, setLoad] = useState(false);
 
   useEffect(() => setLoad(true), [])

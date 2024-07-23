@@ -14,6 +14,7 @@ const YoutuberDashboard = () => {
     const [inputEmail, setInputEmail] = useState(null);
     const session = useSession().data;
 
+
     const [errorMsg, setErrorMsg] = useState(null);
     const [successMsg, setSuccessMsg] = useState(null);
 
@@ -46,7 +47,7 @@ const YoutuberDashboard = () => {
     };
 
     return (
-        <div className={`flex flex-col gap-3 `}>
+        session && <div className={`flex flex-col gap-3 `}>
             <Hero isOpen={isOpen} closeModal={closeModal} openModal={openModal} />
             {isOpen 
             && 

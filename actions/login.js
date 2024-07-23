@@ -14,7 +14,7 @@ export const Login = async (data) => {
         await signIn("credentials", {
             email,
             password,
-            redirectTo: "/editor"
+            redirectTo: "/editor/uploadvideo"
         });
     } catch (error) {
         if (error instanceof AuthError) {

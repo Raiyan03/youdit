@@ -1,6 +1,6 @@
 "use client"
 
-import UploadBox from "@/components/editor/uploadbox"
+import UploadBox from "@/components/editor/upload-video/uploadbox"
 import { Upload } from "@/server/uploadYoutube"
 
 const uploadVideos = () => {

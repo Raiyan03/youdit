@@ -1,4 +1,15 @@
+"use client"
+import { useState } from "react";
 const UploadBox = () =>{
+    const [file, setFile] = useState(null);
+
+    const onChangeFile = (e) => {
+        const file = e.target.files[0];
+        if (file) {
+            setFile(file);
+            console.log(file);
+        }
+    }
     return (
         <div className="flex items-center justify-center w-full">
             <label for="dropzone-file" className="flex flex-col items-center justify-center w-full h-64 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-gray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600">
@@ -9,7 +20,7 @@ const UploadBox = () =>{
                     <p className="mb-2 text-sm text-gray-500 dark:text-gray-400"><span className="font-semibold">Click to upload</span> or drag and drop</p>
                     <p className="text-xs text-gray-500 dark:text-gray-400">SVG, PNG, JPG or GIF (MAX. 800x400px)</p>
                 </div>
-                <input id="dropzone-file" type="file" class="hidden" />
+                <input id="dropzone-file" type="file" class="hidden" onChange={onChangeFile} />
             </label>
         </div> 
     )

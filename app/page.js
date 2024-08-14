@@ -1,7 +1,15 @@
+"use client"
 import Image from "next/image";
 import Link from "next/link";
+import axios from "axios";
+
 
 export default function Home() {
+
+  const onclick = async () => {
+    const response = await axios.get("/api/testApi");
+    console.log(response);
+  }  
   return (
     <main>
       <section className="bg-gray-50">
@@ -32,6 +40,7 @@ export default function Home() {
           </div>
         </div>
       </section>
+      <button className="bg-red-600 text-white px-4 py-2 rounded" onClick={onclick}>Click me</button>
     </main>
   );
 }

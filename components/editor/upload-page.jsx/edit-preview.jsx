@@ -21,19 +21,25 @@ const EditPreview = () => {
         setPreviewUrl(null);
     };
 
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        if (file) {
+            console.log(file);
+        }
+    }
     return (
-        <div className="flex gap-5 space-x-4 justify-center">
-            <div className=" h-67 w-64 items-center">
-                <div className=" relative items-center h-full w-full">
-                    { previewUrl ?
-                        <ThumbnailImage previewUrl={previewUrl} />
-                            : 
-                        <Dropbox onChangeFile={onChangeFile}/>
-                        }
+        <div className="flex flex-col sm:flex-col md:flex-row lg:flex-row gap-10 justify-center">
+            <div className="h-64 w-64 flex flex-col gap-3 items-center mx-auto md:mx-0">
+                <div className=" relative m-1 h-full w-full">
+                    {previewUrl ? (
+                        <ThumbnailImage previewUrl={previewUrl} handleDelete={handleDelete} />
+                    ) : (
+                        <Dropbox onChangeFile={onChangeFile} />
+                    )}
+                    <p className="text-center p-1 text-gray-500">Thumbnail</p>
                 </div>
-                <p className="text-center p-2 text-gray-500">Thumbnail</p>
             </div>
-            <form onSubmit="" className="flex-col flex w-1/2">
+            <form onSubmit={handleSubmit} className="flex sm:mt-24 md:mt-0 flex-col w-full md:w-1/2 lg:w-1/2 px-4">
                 <input
                     type="text"
                     placeholder="Title"
@@ -46,7 +52,7 @@ const EditPreview = () => {
                 />
                 <textarea
                     placeholder="Description"
-                    className="w-full h-32 p-3 text-sm border-2 border-gray-300 rounded-lg focus:outline-none focus:border-primary dark:bg-gray-800 dark:border-gray-600"
+                    className=" resize-none w-full h-32 p-3 text-sm border-2 border-gray-300 rounded-lg focus:outline-none focus:border-primary dark:bg-gray-800 dark:border-gray-600"
                 ></textarea>
                 <button
                     type="submit"
@@ -57,6 +63,7 @@ const EditPreview = () => {
             </form>
         </div>
     );
+    
 };
 
 export default EditPreview;

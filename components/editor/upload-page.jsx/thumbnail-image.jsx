@@ -2,7 +2,7 @@ import React from 'react'
 import Image from 'next/image'
 import { MdDelete } from "react-icons/md";
 import { useState } from 'react';
-const ThumbnailImage = ({ previewUrl }) => {
+const ThumbnailImage = ({ previewUrl, handleDelete }) => {
     const [ isHover, setHover] = useState(false);
     const onMouseEnter = () => {
         setHover(true);
@@ -32,7 +32,9 @@ const ThumbnailImage = ({ previewUrl }) => {
                 transition 
                 ease-in-out p-1 
                 rounded-md" 
-                onMouseEnter={onMouseEnter}>
+                onMouseEnter={onMouseEnter}
+                onClick={handleDelete}
+                >
                     <MdDelete size={20} className='text-red-500' />
                 </button>}
             </>

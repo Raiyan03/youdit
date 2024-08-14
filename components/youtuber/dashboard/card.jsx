@@ -8,7 +8,7 @@ const Card  = ({ openModal, title, description, image, link}) => {
             <h1 className="text-lg font-semibold self-start">
                 {title}
             </h1>
-            <Image src={image} width={100} height={100} />
+            <Image src={image} alt="image" width={100} height={100} />
             <p className="w-full text-wrap">
                 {description}
             </p>

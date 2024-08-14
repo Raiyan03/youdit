@@ -14,7 +14,7 @@ const FormModal = ({isOpen, title, onClose, onSubmit, inputFields, submitLabel="
             <form onSubmit={onSubmit} className="flex gap-2 flex-col my-1 ">
                 { inputFields.map((field, index) => {
                     return(
-                        <input onChange={field?.onChange} className={`h-10 border-2 focus:outline-primary rounded-lg p-2  ${isOpen ? 'focus:ring-primary' : ''}`} type={field?.type} placeholder={field?.placeholder} autoFocus={index === 0} />
+                        <input key={index} onChange={field?.onChange} className={`h-10 border-2 focus:outline-primary rounded-lg p-2  ${isOpen ? 'focus:ring-primary' : ''}`} type={field?.type} placeholder={field?.placeholder} autoFocus={index === 0} />
                     )
                 })}
                 {errorMsg && <ErrorMsg msg={errorMsg} />}

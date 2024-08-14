@@ -1,8 +1,8 @@
 "use client";
 import Dropbox from "@/components/editor/upload-video/dropbox";
 import { useState } from "react";
-import Image from "next/image";
-
+import { MdDelete } from "react-icons/md";
+import ThumbnailImage from "./thumbnail-image";
 const EditPreview = () => {
     const [file, setFile] = useState(null);
     const [previewUrl, setPreviewUrl] = useState(null);
@@ -11,27 +11,25 @@ const EditPreview = () => {
         const AddedFile = e.target.files[0];
         if (AddedFile) {
             setFile(AddedFile);
-
-            // Create a preview URL for the uploaded file
             const url = URL.createObjectURL(AddedFile);
             setPreviewUrl(url);
         }
     };
 
+    const handleDelete = () => {
+        setFile(null);
+        setPreviewUrl(null);
+    };
+
     return (
         <div className="flex gap-5 space-x-4 justify-center">
             <div className=" h-67 w-64 items-center">
-
                 <div className=" relative items-center h-full w-full">
                     { previewUrl ?
-                        <Image
-                            src={previewUrl}
-                            alt="Thumbnail Preview"
-                            layout="fill"
-                            objectFit="cover"
-                            className="rounded-lg"
-                        />
-                    : <Dropbox onChangeFile={onChangeFile}/>}
+                        <ThumbnailImage previewUrl={previewUrl} />
+                            : 
+                        <Dropbox onChangeFile={onChangeFile}/>
+                        }
                 </div>
                 <p className="text-center p-2 text-gray-500">Thumbnail</p>
             </div>

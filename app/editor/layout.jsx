@@ -1,10 +1,9 @@
 import Navbar from "@/components/youtuber/navbar";
 import Sidebar from "@/components/youtuber/sidebar";
 import { SessionProvider } from "next-auth/react";
-import { YoutuberSidebarItems } from "@/constants/youtubers-sidebar";
-
 import userSession from "@/lib/getSession";
-const YoutubeLayout = async ({children}) => {
+import { EditorSidebarItems } from "@/constants/editors-sidebar";
+const EditorLayout = async ({children}) => {
     const session = await userSession();
     const user  = session?.user;
     return (
@@ -15,7 +14,7 @@ const YoutubeLayout = async ({children}) => {
                 </div>
                 <div className="flex flex-grow  pt-16 relative"> {/* Adjust padding-top to the height of your Navbar if needed */}
                     <div className="fixed z-30">
-                        <Sidebar navbarItems={YoutuberSidebarItems} />
+                        <Sidebar navbarItems={EditorSidebarItems} />
                     </div>
                     <main className=" ml-[200px] min-h-sc z-0 flex-1 p-3 h-full">
                         {children}
@@ -26,4 +25,4 @@ const YoutubeLayout = async ({children}) => {
     );
 }
 
-export default YoutubeLayout;
+export default EditorLayout;

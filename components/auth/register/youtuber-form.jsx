@@ -9,7 +9,7 @@ const YoutuberForm = () => {
     const onClick = (provider) => {
         if (provider === 'google') {
             signIn(provider, {
-                callbackUrl: "http://localhost:3000/youtuber/dashboard"
+                callbackUrl: "/youtuber/dashboard"
             })
         }
     }

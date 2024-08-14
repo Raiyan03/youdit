@@ -51,10 +51,10 @@ const EditorFormLogin = () => {
                 }
             })
             .catch((err => {
-                setError("something went wrong");
+                return null;
             }))
         } catch (error) {
-            setError("something went wrong");
+            return null;
         }
     }
 
@@ -75,7 +75,7 @@ const EditorFormLogin = () => {
                     Log in
                 </button>
                 <Link href="/auth/register" className="mt-3 self-center underline hover:text-accent">
-                    Don't have an account? Register
+                    Don&apos;t have an account? Register
                 </Link>
             </form>
         </div>

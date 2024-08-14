@@ -26,7 +26,7 @@ const Frame = ({ data }) => {
         <div onMouseEnter={hover} onMouseLeave={leaveHover} onClick={handleClick} className="flex flex-col cursor-pointer p-2 rounded-md items-center w-full bg-gray-200">
             <div className="flex justify-between w-full items-center">
                 <div className="flex gap-3 items-center">
-                    <Image src={image ? image : "/noavatar.png" } className="border rounded-full bg-slate-700" width={40} height={40} />
+                    <Image src={image ? image : "/noavatar.png" } alt="avatar" className="border rounded-full bg-slate-700" width={40} height={40} />
                     <h1>{name}</h1>
                 </div>
                 {visible && (

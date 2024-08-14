@@ -1,8 +1,7 @@
 "use client"
 
-import UploadBox from "@/components/editor/upload-video/uploadbox"
+import UploadBox from "@/components/editor/upload-video/upload-box"
 import { Upload } from "@/server/uploadYoutube"
-
 const uploadVideos = () => {
     const onSubmit = async (e) => {
         // e.preventDefault();
@@ -14,7 +13,6 @@ const uploadVideos = () => {
         <div>
             <UploadBox />
         </div>
-
     )
 }
 

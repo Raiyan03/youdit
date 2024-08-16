@@ -13,6 +13,7 @@ export async function POST(req){
         await createUser(name, email, hashedPassword);
         return NextResponse.json({message: "You are registered successfully"}, {status: 200});
     } catch (error) {
+        console.error(error);
         return NextResponse.json({message: "Some error occurred"}, {status: 500});
     }
 }

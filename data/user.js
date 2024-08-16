@@ -5,7 +5,8 @@ export const getUserByEmail = async (email) => {
         const user =  await db.user.findUnique({
             where :{
                 email: email,
-            }
+            },
+            cacheStrategy: { ttl: 60 },
         })
         return user;
     } catch(e){
@@ -19,7 +20,8 @@ export const getEditor = async (email) => {
             where :{
                 email: email,
                 role: "EDITOR"
-            }
+            },
+            cacheStrategy: { ttl: 60 },
         })
         return user;
     } catch(e){
@@ -32,7 +34,8 @@ export const getUserById = async (id) => {
         const user = await db.user.findUnique({
             where: {
                 id: id
-            }
+            },
+            cacheStrategy: { ttl: 60 },
         });
         return user;
     } catch(e) {
@@ -48,7 +51,8 @@ export const createUser = async (name, email, password) => {
                 email: email,
                 password: password,
                 role: "EDITOR"
-            }
+            },
+            cacheStrategy: { ttl: 60 },
         })
     } catch(e){
         throw new Error(e);

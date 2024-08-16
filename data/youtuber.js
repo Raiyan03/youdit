@@ -13,7 +13,8 @@ export const updateYoutuber = async (youtuber) => {
                 password: password,
                 role: role,
                 editors: editors,
-            }
+            },
+            cacheStrategy: { ttl: 60 },
         });
         return { success: "Youtuber updated successfully" };
     } catch(e){

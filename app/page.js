@@ -1,7 +1,9 @@
-import Image from "next/image";
+"use client"
 import Link from "next/link";
 
+
 export default function Home() {
+
   return (
     <main>
       <section className="bg-gray-50">
@@ -23,7 +25,7 @@ export default function Home() {
                 </p>
               </Link>
 
-              <Link href="/learn-more">
+              <Link href="#">
                 <p className="block w-full rounded px-12 py-3 text-sm font-medium text-red-600 shadow hover:text-red-700 focus:outline-none focus:ring active:text-red-500 sm:w-auto">
                   Learn More
                 </p>

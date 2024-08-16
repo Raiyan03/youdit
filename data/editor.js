@@ -15,7 +15,8 @@ export const updateEditor = async (editor) => {
                 password: password,
                 role: role,
                 youtubers: youtubers,
-            }
+            },
+            cacheStrategy: { ttl: 60 },
         });
         return { success: "Editor updated successfully" };
     } catch(e){
@@ -45,7 +46,8 @@ export const getAssignedEditors = async (id) => {
             youtubers: {
                 has: id
             }
-        }
+        },
+        cacheStrategy: { ttl: 60 },
     })
     return editors;
 }

@@ -4,18 +4,17 @@ import { IoIosArrowUp } from "react-icons/io";
 import { FaCircleCheck } from "react-icons/fa6";
 
 
-const ChooseYoutuberDropdown = ({ selectedName, setSelectedName  }) => {
+const ChooseYoutuberDropdown = ({ selectedName, setSelectedName, youtubers, setYoutuber  }) => {
 
   const [isOpen, setIsOpen] = useState(false);
-
-  const names = ['Anwar Raiyan', 'Chan Sheung Man', 'Chawala Shoyeb', 'Dhillon Amrit Singh', 'Fok Tat Chun'];
 
   const toggleDropdown = () => {
     setIsOpen(!isOpen);
   };
 
-  const handleNameSelect = (name) => {
+  const handleNameSelect = ({name, id, image}) => {
     setSelectedName(name);
+    setYoutuber({name, id, image});
     setIsOpen(false);
   };
 
@@ -33,14 +32,14 @@ const ChooseYoutuberDropdown = ({ selectedName, setSelectedName  }) => {
         <ul className="absolute z-10 w-56 mt-2 origin-top-right bg-white border border-gray-300 rounded-md shadow-lg ring-black ring-opacity-5 ">
           <span className='p-2 text-xs mt-4 text-gray-500'>Youtubers</span>
           <hr className='mt-1'/>
-          {names.map((name, index) => (
+          {youtubers.map((youtuber, index) => (
             <li
               key={index}
-              onClick={() => handleNameSelect(name)}
+              onClick={() => handleNameSelect(youtuber)}
               className="flex justify-between items-center mx-3 my-3 p-2 text-sm text-gray-700 rounded-lg cursor-pointer hover:bg-gray-100"
             >
-            {name}
-            {selectedName === name &&
+            {youtuber?.name}
+            {selectedName === youtuber?.name &&
                 <FaCircleCheck  className=" text-primary" size={16} />
                 }
             </li>

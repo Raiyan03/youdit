@@ -6,7 +6,8 @@ import ChooseYoutuberDropdown from "@/components/editor/upload-video/choose-yout
 import { FetchEditor } from "@/server/calls";
 import { getSession } from "next-auth/react";
 const uploadVideos = () => {
-    const [selectedName, setSelectedName] = useState('Youtuber');
+    const [selectedName, setSelectedName] = useState("Youtuber");
+    const [selectedYoutuber, setSelectedYoutuber] = useState(null);
     const [user, setUser] = useState(null);
     const [youtubers, setYoutubers] = useState([]);
 
@@ -27,7 +28,7 @@ const uploadVideos = () => {
     return (
     youtubers &&    
     <div className="flex flex-col gap-3">
-            <ChooseYoutuberDropdown selectedName={selectedName} setSelectedName={setSelectedName} />
+            <ChooseYoutuberDropdown setYoutuber={setSelectedYoutuber} youtubers={youtubers} selectedName={selectedName} setSelectedName={setSelectedName} />
             <UploadBox youtuber={selectedName} />
     </div>
     )

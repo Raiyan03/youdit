@@ -1,11 +1,11 @@
-"use client"
+"use client";
 import { useState } from "react";
 import { useEffect } from "react";
 import UploadBox from "@/components/editor/upload-video/upload-box";
 import ChooseYoutuberDropdown from "@/components/editor/upload-video/choose-youtuber-dropdown";
 import { FetchEditor } from "@/server/calls";
 import { getSession } from "next-auth/react";
-const uploadVideos = () => {
+const UploadVideos = () => {
     const [selectedName, setSelectedName] = useState("Youtuber");
     const [selectedYoutuber, setSelectedYoutuber] = useState(null);
     const [user, setUser] = useState(null);
@@ -34,4 +34,4 @@ const uploadVideos = () => {
     )
 }
 
-export default uploadVideos;
+export default UploadVideos;

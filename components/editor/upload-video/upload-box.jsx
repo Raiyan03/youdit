@@ -4,11 +4,12 @@ import FilePreview from "@/components/editor/upload-video/file-preview";
 import DropBox from "@/components/editor/upload-video/dropbox";
 import { firebaseStorage } from "@/firebase/firebaseStorage";
 import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage"
-
+import ProgressBar from "@/components/editor/progress-bar"
 
 const UploadBox = ({youtuber}) =>{
     const [file, setFile] = useState(null);
-    const [progress, setProgress] = useState(0);
+    const [progress, setProgress] = useState(null);
+    const [uploading, setUploading] = useState(false);
     const [uploadCompleted, setUploadCompleted] = useState();
     const resetProgress = () => {
         setProgress(p => p = 0);
@@ -54,6 +55,7 @@ const UploadBox = ({youtuber}) =>{
 
     const handleConfirm = async () => {
         if (file) {
+            setUploading(true);
             console.log("Upload");
             // await Upload(file);
             await uploadFile();
@@ -63,9 +65,10 @@ const UploadBox = ({youtuber}) =>{
 
     return (
         <div className="flex flex-col gap-3 items-center justify-center w-full">
-            <DropBox onChangeFile={onChangeFile}/>
+            <DropBox uploading={uploading} onChangeFile={onChangeFile}/>
             { file && <FilePreview file={file}/>}
-            { file && (<button onClick={handleConfirm} className="px-4 py-2 mt-4 text-white bg-primary rounded-lg hover:bg-accent">Confirm</button>)}
+            { (file && !uploading) && (<button onClick={handleConfirm} className="px-4 py-2 mt-4 text-white bg-primary rounded-lg hover:bg-accent">Confirm</button>)}
+            { uploading && <ProgressBar progress={progress}/>}
         </div> 
     )
 }

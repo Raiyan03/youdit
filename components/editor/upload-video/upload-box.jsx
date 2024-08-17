@@ -3,7 +3,7 @@ import { useState } from "react";
 import FilePreview from "@/components/editor/upload-video/file-preview";
 import DropBox from "@/components/editor/upload-video/dropbox";
 import { firebaseStorage } from "@/firebase/firebaseStorage";
-import { getDownloadURL, getStorage, ref, uploadBytesResumable } from "firebase/storage"
+import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage"
 
 
 const UploadBox = () =>{
@@ -60,6 +60,7 @@ const UploadBox = () =>{
             console.log("Done");
         }
     }
+
     return (
         <div className="flex flex-col gap-3 items-center justify-center w-full">
             <DropBox onChangeFile={onChangeFile}/>

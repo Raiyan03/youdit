@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
+"use client"
+import React, { useState, useEffect } from 'react';
 import { IoIosArrowUp } from "react-icons/io";
 import { FaCircleCheck } from "react-icons/fa6";
 
 
-const ChooseYoutuberDropdown = () => {
-  const [selectedName, setSelectedName] = useState('Youtuber');
+const ChooseYoutuberDropdown = ({ selectedName, setSelectedName  }) => {
+
   const [isOpen, setIsOpen] = useState(false);
 
   const names = ['Anwar Raiyan', 'Chan Sheung Man', 'Chawala Shoyeb', 'Dhillon Amrit Singh', 'Fok Tat Chun'];

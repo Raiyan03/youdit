@@ -1,8 +1,8 @@
 import { auth } from "@/auth";
 import { addYoutuberToEditor, getAssignedEditors, updateEditor } from "@/data/editor";
 import { getEditor, getUserByEmail } from "@/data/user";
-import { addEditorToYoutuber } from "@/data/youtuber";
-import { parseEditor } from "@/lib/util";
+import { addEditorToYoutuber, getAssignedYoutubers } from "@/data/youtuber";
+import { parseEditor, parseYoutuber } from "@/lib/util";
 import { emailValidation } from "@/lib/validation";
 import { NextResponse } from "next/server";
 
@@ -26,6 +26,18 @@ export const getEditors = async (req) => {
     try {
         const editors = await getAssignedEditors(id);
         const response = parseEditor(editors);
+        return NextResponse.json(response, {status: 200});
+    } catch (error) {
+        return NextResponse.json({message: "something went wrong"}, {status: 400});
+    }
+}
+
+export const getYoutubers = async (req) => {
+    const { id } = await req.json();
+    console.log(id);
+    try{
+        const youtuber = await getAssignedYoutubers(id);
+        const response = parseYoutuber(youtuber);
         return NextResponse.json(response, {status: 200});
     } catch (error) {
         return NextResponse.json({message: "something went wrong"}, {status: 400});

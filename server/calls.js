@@ -23,3 +23,12 @@ export const FetchEditors = async (id) =>{
         return { error: error.response.data.message };
     }
 }
+
+export const FetchEditor = async (id) => {
+    try {
+        const response = await axios.post('/api/editor/fetchyoutuber', { id });
+        return response?.data;
+    } catch (error) {
+        return { error: error.response.data.message };
+    }
+}

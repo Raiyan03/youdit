@@ -6,7 +6,7 @@ import { firebaseStorage } from "@/firebase/firebaseStorage";
 import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage"
 
 
-const UploadBox = () =>{
+const UploadBox = ({youtuber}) =>{
     const [file, setFile] = useState(null);
     const [progress, setProgress] = useState(0);
     const [uploadCompleted, setUploadCompleted] = useState();

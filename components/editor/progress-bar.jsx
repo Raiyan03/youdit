@@ -9,7 +9,6 @@ const ProgressBar = ({ progress }) => {
         <span className="text-sm font-medium text-accent dark:text-white">{ProgressNumber}%</span>
       </div>
       <div className="w-full bg-gray-200 rounded-full h-2.5 dark:bg-gray-700">
-        {/* Apply the dynamic width using the style prop */}
         <div className="bg-primary h-2.5 rounded-full" style={{ width: ProgressWidth }}></div>
       </div>
     </div>

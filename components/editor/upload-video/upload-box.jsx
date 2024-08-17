@@ -28,7 +28,7 @@ const UploadBox = ({youtuber}) =>{
             // Track upload progress
             const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
             setProgress( p => p = progress);
-            console.log('Upload is ' + progress + '% done');
+
           }, 
           (error) => {
             // Handle any errors during upload
@@ -37,9 +37,9 @@ const UploadBox = ({youtuber}) =>{
           () => {
             // This function runs after the upload completes
             getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
-              console.log('File available at', downloadURL);
+
             }).catch((error) => {
-              console.error('Error getting download URL:', error);
+
             });
           }
         );
@@ -56,10 +56,7 @@ const UploadBox = ({youtuber}) =>{
     const handleConfirm = async () => {
         if (file) {
             setUploading(true);
-            console.log("Upload");
-            // await Upload(file);
             await uploadFile();
-            console.log("Done");
         }
     }
 

@@ -5,7 +5,6 @@ import { firebaseStorage } from "@/firebase/firebaseStorage";
 import { useState } from "react";
 import ThumbnailImage from "@/components/editor/upload-page.jsx/thumbnail-image";
 import { SaveThumbnailInfo } from "@/server/calls";
-import Spinner from "../spinner";
 import { toast } from "sonner";
 
 const EditPreview = ({ id }) => {

@@ -1,4 +1,4 @@
-const { db } = require("@/lib/db")
+import { db } from "@/lib/db";
 
 export const updateYoutuber = async (youtuber) => {
     const { id, name, email, password, role, createdAt, updatedAt, editors } = youtuber;

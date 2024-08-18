@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { emailValidation, validateApiResponse } from '@/lib/validation';
+import { compareSync } from 'bcryptjs';
 
 export const addEditor = async (email, youtuberEmail) => {
     const isValidEmail = emailValidation(email);
@@ -27,6 +28,16 @@ export const FetchEditors = async (id) =>{
 export const FetchEditor = async (id) => {
     try {
         const response = await axios.post('/api/editor/fetchyoutuber', { id });
+        return response?.data;
+    } catch (error) {
+        return { error: error.response.data.message };
+    }
+}
+
+export const SaveVideo = async ( video ) => {
+    console.log(video);
+    try {
+        const response = await axios.post('/api/editor/savevideo', { video });
         return response?.data;
     } catch (error) {
         return { error: error.response.data.message };

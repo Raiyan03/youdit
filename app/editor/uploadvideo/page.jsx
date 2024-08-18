@@ -29,7 +29,7 @@ const UploadVideos = () => {
     youtubers &&    
     <div className="flex flex-col gap-3">
             <ChooseYoutuberDropdown setYoutuber={setSelectedYoutuber} youtubers={youtubers} selectedName={selectedName} setSelectedName={setSelectedName} />
-            <UploadBox youtuber={selectedName} />
+            <UploadBox userId={user?.id} youtuber={selectedYoutuber?.id} />
     </div>
     )
 }

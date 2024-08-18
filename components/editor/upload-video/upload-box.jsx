@@ -5,17 +5,19 @@ import DropBox from "@/components/editor/upload-video/dropbox";
 import { firebaseStorage } from "@/firebase/firebaseStorage";
 import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage"
 import ProgressBar from "@/components/editor/progress-bar"
+import { SaveVideo } from "@/server/calls";
 
-const UploadBox = ({youtuber}) =>{
+const UploadBox = ({youtuber, userId}) =>{
+    console.log(youtuber, userId);
     const [file, setFile] = useState(null);
     const [progress, setProgress] = useState(null);
     const [uploading, setUploading] = useState(false);
-    const [uploadCompleted, setUploadCompleted] = useState();
     const resetProgress = () => {
         setProgress(p => p = 0);
       }
 
       const uploadFile = async () => {
+        
         const metadata = {
           contentType: file?.type,
         };
@@ -37,7 +39,12 @@ const UploadBox = ({youtuber}) =>{
           () => {
             // This function runs after the upload completes
             getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
-
+              console.log('File available at', downloadURL);
+              SaveVideo({url: downloadURL, youtuberId: youtuber, editorId: userId})
+              .then((response) => {
+                console.log(response);
+                resetProgress();
+              });
             }).catch((error) => {
 
             });

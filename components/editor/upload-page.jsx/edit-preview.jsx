@@ -5,13 +5,16 @@ import { firebaseStorage } from "@/firebase/firebaseStorage";
 import { useState } from "react";
 import ThumbnailImage from "@/components/editor/upload-page.jsx/thumbnail-image";
 import { SaveThumbnailInfo } from "@/server/calls";
+import Spinner from "../spinner";
+import { toast } from "sonner";
+
 const EditPreview = ({ id }) => {
     const [file, setFile] = useState(null);
     const [previewUrl, setPreviewUrl] = useState(null);
     const [title, setTitle] = useState();
     const [tags, setTags] = useState([]);
     const [description, setDescription] = useState();
-
+    const [ uploading, setUploading ] = useState(false);
     const handleTitle = (e) => {
         setTitle(e.target.value);
     }
@@ -44,34 +47,52 @@ const EditPreview = ({ id }) => {
         if (file) {
             const metadata = {
                 contentType: file?.type,
-              };
+            };
             const storageRef = ref(firebaseStorage, `Thumbnails/` + file?.name);
             const uploadTask = uploadBytesResumable(storageRef, file, metadata);
-          
-            uploadTask.on('state_changed', 
-              (snapshot) => {
-                const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-              }, 
-              (error) => {
-                // Handle any errors during upload
-              }, 
-              () => {
-                // This function runs after the upload completes
-                getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
-                    const info = { title: title, 
-                        tags: tags, 
-                        description: description, 
-                        thumbnail: downloadURL };
+        
+            // Create a promise to wrap the Firebase upload
+            const uploadPromise = new Promise((resolve, reject) => {
+                uploadTask.on('state_changed', 
+                    (snapshot) => {
+                        const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+                        console.log(progress); // Optionally log the progress
+                    }, 
+                    (error) => {
+                        reject(error);
+                    }, 
+                    () => {
+                        getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+                            const info = { title: title, 
+                                tags: tags, 
+                                description: description, 
+                                thumbnail: downloadURL };
+                            SaveThumbnailInfo(id, info)
+                            .then((response) => {
+                                resolve(response);
+                            })
+                            .catch((error) => {
+                                reject(error);
+                            });
+                        }).catch((error) => {
+                            reject(error); // Reject if getting the download URL fails
+                        });
+                    }
+                );
+            });
 
-                    SaveThumbnailInfo(id, info)
-                    .then((response) => {
-                    })
-                }).catch((error) => {
-    
-                });
-              }
+            toast.promise(
+                uploadPromise, 
+                {
+                    loading: 'Uploading Thumbnail...',
+                    success: 'Thumbnail Uploaded!',
+                    error: 'Error Uploading Thumbnail',
+                    duration: 2000,
+                },
+                
             );
         }
+        
     }
 
     return (
@@ -104,12 +125,22 @@ const EditPreview = ({ id }) => {
                     className=" resize-none w-full h-32 p-3 text-sm border-2 border-gray-300 rounded-lg focus:outline-none focus:border-primary dark:bg-gray-800 dark:border-gray-600"
                     onChange={handleDescription}
                 ></textarea>
-                <button
+                { uploading ?                 
+                    <button
+                    disabled
+                    
+                    className="px-4 py-2 mt-4 cursor-progress text-white bg-primary rounded-lg hover:bg-accent"
+                    >
+                        Upload
+                    </button>
+                :
+                    <button
                     type="submit"
                     className="px-4 py-2 mt-4 text-white bg-primary rounded-lg hover:bg-accent"
-                >
-                    Confirm
-                </button>
+                    >
+                        Upload
+                    </button>
+                }
             </form>
         </div>
     );

@@ -34,7 +34,6 @@ export const getEditors = async (req) => {
 
 export const getYoutubers = async (req) => {
     const { id } = await req.json();
-    console.log(id);
     try{
         const youtuber = await getAssignedYoutubers(id);
         const response = parseYoutuber(youtuber);
@@ -58,7 +57,6 @@ export const InsertVideo = async (req) => {
 
 export const UpdateThumbnailInfo = async (req) => {
     const { id, info } = await req.json();
-    console.log(id, info);
     try {
         const response = await saveInfo(id, info);
         return NextResponse.json(response, {status: 200});

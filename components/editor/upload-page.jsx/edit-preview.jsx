@@ -51,7 +51,6 @@ const EditPreview = ({ id }) => {
             uploadTask.on('state_changed', 
               (snapshot) => {
                 const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-                console.log(`${progress}%`);
               }, 
               (error) => {
                 // Handle any errors during upload
@@ -59,7 +58,6 @@ const EditPreview = ({ id }) => {
               () => {
                 // This function runs after the upload completes
                 getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
-                    console.log(downloadURL);
                     const info = { title: title, 
                         tags: tags, 
                         description: description, 
@@ -67,17 +65,12 @@ const EditPreview = ({ id }) => {
 
                     SaveThumbnailInfo(id, info)
                     .then((response) => {
-                        console.log(response);
                     })
                 }).catch((error) => {
     
                 });
               }
             );
-            console.log(file);
-            console.log(title);
-            console.log(tags);
-            console.log(description);
         }
     }
 

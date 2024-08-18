@@ -40,7 +40,6 @@ const UploadBox = ({youtuber, userId}) =>{
             getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
               SaveVideo({url: downloadURL, youtuberId: youtuber, editorId: userId})
               .then((response) => {
-                console.log(response?.response);
                 setTimeout(() => {
                   router.push(`/editor/preview/${response?.response}`);
                 }, 2000);

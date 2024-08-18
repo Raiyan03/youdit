@@ -4,7 +4,6 @@ import { useParams } from "next/navigation";
 
 const Preview = () => {
     const { id } = useParams();
-    console.log(id);
     return (
         <EditPreview id={id}/>
     );

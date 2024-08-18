@@ -35,7 +35,6 @@ export const FetchEditor = async (id) => {
 }
 
 export const SaveVideo = async ( video ) => {
-    console.log(video);
     try {
         const response = await axios.post('/api/editor/savevideo', { video });
         return response?.data;
@@ -45,7 +44,6 @@ export const SaveVideo = async ( video ) => {
 }
 
 export const SaveThumbnailInfo = async (id, info) => {
-    console.log(id, info);
     try {
         const response = await axios.post('/api/editor/savevideoinfo', { id, info });
         return response?.data;

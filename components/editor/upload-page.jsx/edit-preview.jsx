@@ -1,11 +1,29 @@
 "use client";
 import Dropbox from "@/components/editor/upload-video/dropbox";
+import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage"
+import { firebaseStorage } from "@/firebase/firebaseStorage";
 import { useState } from "react";
-import { MdDelete } from "react-icons/md";
-import ThumbnailImage from "./thumbnail-image";
-const EditPreview = () => {
+import ThumbnailImage from "@/components/editor/upload-page.jsx/thumbnail-image";
+import { SaveThumbnailInfo } from "@/server/calls";
+const EditPreview = ({ id }) => {
     const [file, setFile] = useState(null);
     const [previewUrl, setPreviewUrl] = useState(null);
+    const [title, setTitle] = useState();
+    const [tags, setTags] = useState([]);
+    const [description, setDescription] = useState();
+
+    const handleTitle = (e) => {
+        setTitle(e.target.value);
+    }
+
+    const handleTags  = (e) => {
+        const tags = e.target.value.split(",").map(tag => tag.trim());
+        setTags(tags);
+    }
+
+    const handleDescription = (e) => {
+        setDescription(e.target.value);
+    }
 
     const onChangeFile = (e) => {
         const AddedFile = e.target.files[0];
@@ -24,9 +42,45 @@ const EditPreview = () => {
     const handleSubmit = (e) => {
         e.preventDefault();
         if (file) {
+            const metadata = {
+                contentType: file?.type,
+              };
+            const storageRef = ref(firebaseStorage, `Thumbnails/` + file?.name);
+            const uploadTask = uploadBytesResumable(storageRef, file, metadata);
+          
+            uploadTask.on('state_changed', 
+              (snapshot) => {
+                const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+                console.log(`${progress}%`);
+              }, 
+              (error) => {
+                // Handle any errors during upload
+              }, 
+              () => {
+                // This function runs after the upload completes
+                getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+                    console.log(downloadURL);
+                    const info = { title: title, 
+                        tags: tags, 
+                        description: description, 
+                        thumbnail: downloadURL };
+
+                    SaveThumbnailInfo(id, info)
+                    .then((response) => {
+                        console.log(response);
+                    })
+                }).catch((error) => {
+    
+                });
+              }
+            );
             console.log(file);
+            console.log(title);
+            console.log(tags);
+            console.log(description);
         }
     }
+
     return (
         <div className="flex flex-col sm:flex-col md:flex-row lg:flex-row gap-10 justify-center">
             <div className="h-64 w-64 flex flex-col gap-3 items-center mx-auto md:mx-0">
@@ -44,15 +98,18 @@ const EditPreview = () => {
                     type="text"
                     placeholder="Title"
                     className="w-full h-10 px-3 mb-2 text-sm border-2 rounded-lg focus:outline-none focus:border-primary dark:bg-gray-800 dark:border-gray-600"
+                    onChange={handleTitle}
                 />
                 <input
                     type="text"
                     placeholder="Tags"
                     className="w-full h-10 px-3 mb-2 text-sm border-2 rounded-lg focus:outline-none focus:border-primary dark:bg-gray-800 dark:border-gray-600"
+                    onChange={handleTags}
                 />
                 <textarea
                     placeholder="Description"
                     className=" resize-none w-full h-32 p-3 text-sm border-2 border-gray-300 rounded-lg focus:outline-none focus:border-primary dark:bg-gray-800 dark:border-gray-600"
+                    onChange={handleDescription}
                 ></textarea>
                 <button
                     type="submit"

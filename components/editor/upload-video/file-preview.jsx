@@ -3,7 +3,6 @@ import Image from "next/image";
 import { intoMb } from "@/lib/client-util";
 const FilePreview = (props) => {
     const { file } = props;
-    console.log(file);
     return (
         <div className="flex w-full p-5 items-center gap-5 border rounded-lg">
             <div className="">

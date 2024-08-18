@@ -81,6 +81,7 @@ model Video {
   editorId    String
   youtuberId  String
   title       String?
+  tags        String[]
   description String?
   url         String
   thumbnail   String?

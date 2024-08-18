@@ -43,3 +43,13 @@ export const SaveVideo = async ( video ) => {
         return { error: error.response.data.message };
     }
 }
+
+export const SaveThumbnailInfo = async (id, info) => {
+    console.log(id, info);
+    try {
+        const response = await axios.post('/api/editor/savevideoinfo', { id, info });
+        return response?.data;
+    } catch (error) {
+        return { error: error.response.data.message };
+    }
+}

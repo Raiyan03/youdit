@@ -54,7 +54,7 @@ You can access the live deployment of YouDit here: https://youdit.vercel.app
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/username/youdit.git
+   git clone https://github.com/Raiyan03/youdit.git
    ```
 2. Install dependencies:
    ```bash

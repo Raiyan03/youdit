@@ -1,11 +1,12 @@
 import { auth } from "@/auth";
 import { addYoutuberToEditor, getAssignedEditors, updateEditor } from "@/data/editor";
 import { getEditor, getUserByEmail } from "@/data/user";
-import { saveInfo, saveVideo } from "@/data/video";
+import { saveInfo, saveVideo, createRequest } from "@/data/video";
 import { addEditorToYoutuber, getAssignedYoutubers } from "@/data/youtuber";
 import { parseEditor, parseYoutuber } from "@/lib/util";
 import { emailValidation } from "@/lib/validation";
 import { NextResponse } from "next/server";
+
 export const AssignEditor = async (req) => {
     const {email, youtuberEmail}  = await req.json();
     const isValid = emailValidation(email);
@@ -56,9 +57,11 @@ export const InsertVideo = async (req) => {
 }
 
 export const UpdateThumbnailInfo = async (req) => {
+    console.log("update thumbnail info");
     const { id, info } = await req.json();
     try {
         const response = await saveInfo(id, info);
+        await createRequest(id);
         return NextResponse.json(response, {status: 200});
     } catch (error) {
         return NextResponse.json({message: "something went wrong"}, {status: 400});

@@ -7,6 +7,7 @@ export const saveVideo = async ( editorId, youtuberId, url) => {
                 editorId: editorId,
                 youtuberId: youtuberId,
                 url: url,
+                verified: false,
             },
             cacheStrategy: { ttl: 60 },
         });
@@ -34,6 +35,45 @@ export const saveInfo = async (id, info) => {
             cacheStrategy: { ttl: 60 },
         })
         return response;
+    } catch(e){
+        console.log(e);
+        return { error: "Couldn't add error" };
+    }
+}
+
+export const createRequest = async (videoId) => {
+    try {
+        const response = await db.videoVerification.create({
+            data: {
+                videoId: videoId,
+                verified: false,
+            }
+        })
+    } catch(e){
+        console.log(e);
+        return { error: "Couldn't add error" };
+    }
+}
+
+export const resolveRequest = async (videoId) => {
+    try {
+        const response = await db.video.update({
+            where: {
+                id: videoId,
+            },
+            data: {
+                verified: new Date(),
+            }
+        })
+
+        await db.videoVerification.delete({
+            where: {
+                videoId: videoId,
+            }
+        })
+
+        return response;
+
     } catch(e){
         console.log(e);
         return { error: "Couldn't add error" };

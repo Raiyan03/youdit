@@ -7,7 +7,6 @@ export const saveVideo = async ( editorId, youtuberId, url) => {
                 editorId: editorId,
                 youtuberId: youtuberId,
                 url: url,
-                verified: false,
             },
             cacheStrategy: { ttl: 60 },
         });

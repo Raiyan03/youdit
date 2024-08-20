@@ -47,7 +47,8 @@ export const createRequest = async (videoId) => {
             data: {
                 videoId: videoId,
                 verified: false,
-            }
+            },
+            cacheStrategy: { ttl: 60 },
         })
     } catch(e){
         console.log(e);
@@ -63,13 +64,15 @@ export const resolveRequest = async (videoId) => {
             },
             data: {
                 verified: new Date(),
-            }
+            },
+            cacheStrategy: { ttl: 60 },
         })
 
         await db.videoVerification.delete({
             where: {
                 videoId: videoId,
-            }
+            },
+            cacheStrategy: { ttl: 60 },
         })
 
         return response;

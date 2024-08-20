@@ -3,6 +3,7 @@ import Sidebar from "@/components/youtuber/sidebar";
 import { SessionProvider } from "next-auth/react";
 import userSession from "@/lib/getSession";
 import { EditorSidebarItems } from "@/constants/editors-sidebar";
+import { Toaster } from 'sonner';
 const EditorLayout = async ({children}) => {
     const session = await userSession();
     const user  = session?.user;
@@ -18,6 +19,7 @@ const EditorLayout = async ({children}) => {
                     </div>
                     <main className=" ml-[200px] min-h-sc z-0 flex-1 p-3 h-full">
                         {children}
+                        <Toaster richColors />
                     </main>
                 </div>
             </div>

@@ -1,8 +1,9 @@
 import { auth } from "@/auth";
 import { addYoutuberToEditor, getAssignedEditors, updateEditor } from "@/data/editor";
 import { getEditor, getUserByEmail } from "@/data/user";
-import { addEditorToYoutuber } from "@/data/youtuber";
-import { parseEditor } from "@/lib/util";
+import { saveInfo, saveVideo, createRequest } from "@/data/video";
+import { addEditorToYoutuber, getAssignedYoutubers } from "@/data/youtuber";
+import { parseEditor, parseYoutuber } from "@/lib/util";
 import { emailValidation } from "@/lib/validation";
 import { NextResponse } from "next/server";
 
@@ -26,6 +27,41 @@ export const getEditors = async (req) => {
     try {
         const editors = await getAssignedEditors(id);
         const response = parseEditor(editors);
+        return NextResponse.json(response, {status: 200});
+    } catch (error) {
+        return NextResponse.json({message: "something went wrong"}, {status: 400});
+    }
+}
+
+export const getYoutubers = async (req) => {
+    const { id } = await req.json();
+    try{
+        const youtuber = await getAssignedYoutubers(id);
+        const response = parseYoutuber(youtuber);
+        return NextResponse.json(response, {status: 200});
+    } catch (error) {
+        return NextResponse.json({message: "something went wrong"}, {status: 400});
+    }
+}
+
+export const InsertVideo = async (req) => {
+    const { video } = await req.json();
+    const { youtuberId, editorId, url } = video;
+    try{
+        const response = await saveVideo(editorId, youtuberId, url);
+        return NextResponse.json( {response}, {status: 200});
+    } catch (error) {
+        console.log(error);
+        return NextResponse.json({message: "something went wrong"}, {status: 400});
+    }
+}
+
+export const UpdateThumbnailInfo = async (req) => {
+    console.log("update thumbnail info");
+    const { id, info } = await req.json();
+    try {
+        const response = await saveInfo(id, info);
+        await createRequest(id);
         return NextResponse.json(response, {status: 200});
     } catch (error) {
         return NextResponse.json({message: "something went wrong"}, {status: 400});

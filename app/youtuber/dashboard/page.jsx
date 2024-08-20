@@ -13,7 +13,6 @@ const YoutuberDashboard = () => {
     const [isOpen, setIsOpen] = useState(false);
     const [inputEmail, setInputEmail] = useState(null);
     const session = useSession().data;
-    console.log(session);
 
     const [errorMsg, setErrorMsg] = useState(null);
     const [successMsg, setSuccessMsg] = useState(null);

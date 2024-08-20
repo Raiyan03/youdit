@@ -31,6 +31,8 @@ model User {
   role          UserRole        @default(YOUTUBER)
   youtubers     String[]
   editors       String[]
+  editedVideos  Video[] @relation("VideoEditor")
+  createdVideos Video[] @relation("VideoYoutuber")
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
@@ -72,4 +74,33 @@ model VerificationToken {
   expires    DateTime
  
   @@id([identifier, token])
+}
+
+model Video {
+  id          String   @id @default(cuid())
+  editorId    String
+  youtuberId  String
+  title       String?
+  tags        String[]
+  description String?
+  url         String
+  thumbnail   String?
+  publishedAt DateTime?
+  createdAt   DateTime @default(now())
+  verified    DateTime?
+  updatedAt   DateTime @updatedAt
+
+  editor      User @relation("VideoEditor", fields: [editorId], references: [id])
+  youtuber    User @relation("VideoYoutuber", fields: [youtuberId], references: [id])
+  verification VideoVerification? @relation("VideoVerification")
+}
+
+model VideoVerification {
+  id         String   @id @default(cuid())
+  videoId     String  @unique
+  verified    Boolean
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  video       Video @relation("VideoVerification", fields: [videoId], references: [id])
 }

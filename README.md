@@ -2,7 +2,6 @@
 
 ![logo2](https://github.com/user-attachments/assets/9143325f-7c18-4f43-ac11-3d6919b78384)
 
-
 ## Overview
 
 **YouDit** is an innovative platform designed to streamline the collaboration between YouTubers and video editors. By offering a secure and efficient workflow, YouDit allows YouTubers to manage their channels with ease, while editors can focus on creating great content. The platform integrates with YouTube's API, enabling seamless video uploads and channel management, making it the ultimate tool for content creators.

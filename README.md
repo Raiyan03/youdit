@@ -1,5 +1,4 @@
 # YouDit
-
 ![logo2](https://github.com/user-attachments/assets/9143325f-7c18-4f43-ac11-3d6919b78384)
 
 ## Overview
